@@ -831,30 +831,36 @@ class SerialInputThread( threading.Thread ):
       mutex.release()      
       if tty_ok:
         mutex.acquire()
-        while (tty.inWaiting() > 0):
-          flush_timeout = 0
-          inbuffer = ENC(inbuffer)
-          inbuffer += tty.read( tty.inWaiting() )
-          if serial_mode in [ AT_CMD, USER_SPLIT ]:
-            if serial_mode == AT_CMD:
-              lst = re.split( '\n', inbuffer )
-              def remove_r( ln ):
-                while ln and (ln[0]=='\r'): ln = ln[1:]
-                while ln and (ln[-1:]=='\r'): ln = ln[:-1]
-                return ln
-              inlines += list(map(remove_r,lst[:-1]))
-            else:
-              if inbuffer:
-                lst = re.split( user_split_str, inbuffer )
-                inlines += lst[:-1]
-            inbuffer = lst[-1]
-            if d:
-              for line in inlines:
-                if line:
-                  log_output( None, line )
-                  if script_name and not (script_data_handler is None):
-                    script_data_handler( line )
-            inlines = []
+        try:
+            while (tty.inWaiting() > 0):
+              flush_timeout = 0
+              inbuffer = ENC(inbuffer)
+              inbuffer += tty.read( tty.inWaiting() )
+              if serial_mode in [ AT_CMD, USER_SPLIT ]:
+                if serial_mode == AT_CMD:
+                  lst = re.split( '\n', inbuffer )
+                  def remove_r( ln ):
+                    while ln and (ln[0]=='\r'): ln = ln[1:]
+                    while ln and (ln[-1:]=='\r'): ln = ln[:-1]
+                    return ln
+                  inlines += list(map(remove_r,lst[:-1]))
+                else:
+                  if inbuffer:
+                    lst = re.split( user_split_str, inbuffer )
+                    inlines += lst[:-1]
+                inbuffer = lst[-1]
+                if d:
+                  for line in inlines:
+                    if line:
+                      log_output( None, line )
+                      if script_name and not (script_data_handler is None):
+                        script_data_handler( line )
+                inlines = []
+        except:
+            tty_ok = False
+            tty = None
+            log_output( 'ERR', "SERIAL PORT ERROR" )
+            
         mutex.release()
         time.sleep( 0.1 )
         flush_timeout += 1
