@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.0  (Linux)">
+	<META NAME="CREATED" CONTENT="20061210;5102700">
+	<META NAME="CHANGED" CONTENT="20061212;23221200">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in }
+		TD P { color: #ffffff }
+		TD P.western { font-family: sans-serif; so-language: en-US }
+		H1 { color: #ff8c00 }
+		H1.western { font-family: "sans serif"; so-language: en-US }
+		H1.cjk { font-family: "HG Mincho Light J", "MS Mincho", "HG Mincho J", "HG Mincho L", "HG Mincho", "Mincho", "MS PMincho", "MS Gothic", "HG Gothic J", "HG Gothic B", "HG Gothic", "Gothic", "MS PGothic", "Andale Sans UI", "Arial Unicode MS", "Lucida Sans Unicode", "Tahoma"; font-size: 12pt; font-weight: medium }
+		H1.ctl { font-size: 12pt; font-weight: medium }
+		P { color: #ffffff }
+		P.western { font-family: "sans serif"; so-language: en-US }
+		A:link { color: #ffff00 }
+		A:visited { color: #ffff00 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#ffffff" LINK="#ffff00" VLINK="#ffff00" BGCOLOR="#ffffff" BACKGROUND="blocks.jpg" DIR="LTR">
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=59*>
+	<COL WIDTH=197*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=23%>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Introduction</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./index.html"><U><FONT COLOR="#ffff00">Index</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./overview.html"><U><FONT COLOR="#ffff00">Overview</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./installation.html"><U><FONT COLOR="#ffff00">Installation</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./getting_started.html"><B><U><FONT COLOR="#ffff00">Getting Started</FONT></U></B></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>GUI</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_input.html"><FONT COLOR="#ffff00"><U>Input</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_output.html"><FONT COLOR="#ffff00"><U>Output</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_buttons.html"><FONT COLOR="#ffff00"><U>Buttons</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_other.html"><FONT COLOR="#ffff00"><U>Other</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Scripts</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_intro.html"><FONT COLOR="#ffff00"><U>Introduction</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_reference.html"><FONT COLOR="#ffff00"><U>Reference</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_examples.html"><FONT COLOR="#ffff00"><U>Examples</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Appendix</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./license.html"><U><FONT COLOR="#ffff00">License</FONT></U></A></P>
+			<P CLASS="western"><A HREF="./relnotes.html"><U><FONT COLOR="#ffff00">Rel.
+			Notes</FONT></U></A></P>
+		</TD>
+		<TD WIDTH=77%>
+			<H1 CLASS="western">Getting Started with CommScript</H1>
+			<P CLASS="western"><B>When you run CommScript, it will look for the
+			files 'input.txt', 'output.txt', and 'setup.p' which contain the
+			contents of input / output areas, and the global settings. If
+			those files do not exist, the input and/or output area will appear
+			blank and/or the program will use default settings. Those files
+			will be created (or overwritten with new contents) when you close
+			CommScript. You may also press Ctrl-S anytime when the cursor is
+			visible in the output area or in the input line. (You may wish to
+			do that from time to time, if you have data you don't want to
+			loose. By the way, it is OK to copy or rename the generated files
+			after a save, if you would like to file it somewhere else...)</B></P>
+			<P CLASS="western"><B>The available ports will be also determined
+			at startup. CommScript will check which ports (COM1 through COM49)
+			it is able to open and it adds those to the drop down list for
+			port selection. Since the available ports may change while
+			CommScript is running, it will update the list every time OFF is
+			selected. If you feel a port is not listed but should be available
+			since you closed it within another program, just select OFF &ndash;
+			even if the current setting is already OFF &ndash; then it should
+			appear when you click the com port button again!</B></P>
+			<P CLASS="western"><B>The buttons to the right of the com port
+			button let you choose the baud rate, byte size/parity/stop bits,
+			and flow control (the latter I haven't tested yet). Every time one
+			of the port parameters is changed, the port will be closed and
+			opened again with the new settings. </B>
+			</P>
+			<P CLASS="western"><B>Please note: The communication settings are
+			part of the global setup! So they will be saved when the program
+			is closed and restored, if possible when the program is started
+			again... If the previously selected port is not available at
+			startup, the button will automatically change to OFF.</B></P>
+			<P CLASS="western"><B>Let's assume you have selected the port
+			parameters appropriately and a modem is connected to the port. Now
+			you can start sending AT commands from the input line: Make sure
+			you can see the cursor blinking in the input line near the bottom
+			of the window. If it is not there, just click into the input
+			line... Type in</B></P>
+			<P CLASS="western"><B>AT</B></P>
+			<P CLASS="western"><B>and press &lt;Enter&gt;! You will see your
+			input added with time stamp to the input history on the left, and
+			if port parameters are correct and the modem does respond, you
+			should see</B></P>
+			<P CLASS="western"><B>[00:00:00] OK</B></P>
+			<P CLASS="western"><B>or if the modem does echo your input</B></P>
+			<P CLASS="western"><B>[00:00:00] AT<BR>[00:00:00] OK</B></P>
+			<P CLASS="western"><B>where [00:00:00] is the current time stamp.</B></P>
+			<P CLASS="western"><B>Please note: The output from the device
+			currently is split at line feed ('\n') characters. After
+			splitting, possibly '\r' characters at the beginning or end of
+			line are deleted. Also, since empty lines do not contain a lot of
+			information, all empty lines will be deleted. If the device does
+			not send line feed characters, the internal input buffer will be
+			flushed if no data has been received for 1 second. In the output
+			area this will be indicated by -F after the time stamp.</B></P>
+			<P CLASS="western"><BR><BR>
+			</P>
+			<P CLASS="western"><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

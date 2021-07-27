@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.1  (Linux)">
+	<META NAME="CREATED" CONTENT="20061210;5102700">
+	<META NAME="CHANGED" CONTENT="20061211;18014100">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in }
+		TD P { color: #ffffff }
+		TD P.western { font-family: sans-serif; so-language: en-US }
+		H1 { color: #ff8c00 }
+		H1.western { font-family: "sans serif"; so-language: en-US }
+		H1.cjk { font-family: "HG Mincho Light J", "MS Mincho", "HG Mincho J", "HG Mincho L", "HG Mincho", "Mincho", "MS PMincho", "MS Gothic", "HG Gothic J", "HG Gothic B", "HG Gothic", "Gothic", "MS PGothic", "Andale Sans UI", "Arial Unicode MS", "Lucida Sans Unicode", "Tahoma"; font-size: 12pt; font-weight: medium }
+		H1.ctl { font-size: 12pt; font-weight: medium }
+		P { color: #ffffff }
+		P.western { font-family: "sans serif"; so-language: en-US }
+		A:link { color: #ffff00 }
+		A:visited { color: #ffff00 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#ffffff" LINK="#ffff00" VLINK="#ffff00" BGCOLOR="#ffffff" BACKGROUND="blocks.jpg" DIR="LTR">
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=59*>
+	<COL WIDTH=197*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=23%>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Introduction</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./index.html"><U><FONT COLOR="#ffff00">Index</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./overview.html"><B><U><FONT COLOR="#ffff00">Overview</FONT></U></B></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./installation.html"><U><FONT COLOR="#ffff00">Installation</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./getting_started.html"><U><FONT COLOR="#ffff00">Getting Started</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>GUI</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_input.html"><FONT COLOR="#ffff00"><U>Input</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_output.html"><FONT COLOR="#ffff00"><U>Output</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_buttons.html"><FONT COLOR="#ffff00"><U>Buttons</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_other.html"><FONT COLOR="#ffff00"><U>Other</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Scripts</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_intro.html"><FONT COLOR="#ffff00"><U>Introduction</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_reference.html"><FONT COLOR="#ffff00"><U>Reference</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_examples.html"><FONT COLOR="#ffff00"><U>Examples</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Appendix</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./license.html"><U><FONT COLOR="#ffff00">License</FONT></U></A></P>
+			<P CLASS="western"><A HREF="./relnotes.html"><U><FONT COLOR="#ffff00">Rel.
+			Notes</FONT></U></A></P>
+		</TD>
+		<TD WIDTH=77%>
+			<H1 CLASS="western">CommScript Overview</H1>
+			<P CLASS="western"><B>The main concept of CommScript is to divide
+			what you type and the output of a device connected to a serial
+			port is into separate areas. Actually, using CommScript you will
+			enter the data to send to the device into a yet separate dedicated
+			input line. The data is not immediately sent to the port, you need
+			to press enter first, to execute the input line. This is much
+			easier to handle than typing into a terminal emulator if a device
+			is constantly sending data. You are always able to read what you
+			have typed an it does not get mixed up with the output from the
+			device, so you don't need to remember which characters you already
+			typed and it is easier to spot and correct typos.</B></P>
+			<P CLASS="western"><B>After pressing Enter in the input line, the
+			input is timestamped and copied into a history list of inputs –
+			the left part of the vertically divided window. Everything in this
+			history may be recalled at a later time and the history will be
+			saved when the program is closed. So you'll be able to continue
+			when CommScript is run again.</B></P>
+			<P CLASS="western"><B>The outputs of the device are also
+			timestamped (so you'll be able to figure out the sequence of
+			events if the device does not echo the received data) and logged
+			into the right part of the window. This area actually has editing
+			capabilities, so that you are able to enter comments – even
+			while more output is appended to the end of the text. The text in
+			this area is also saved when leaving CommScript and restored on next
+			run.</B></P>
+			<P CLASS="western"><B>Please note, that the iso-8859-15 encoding
+			used to save the files. It will cause you trouble if you type
+			characters that cannot be encoded in this character set! It even
+			may happen that you cannot exit CommScript and that you do not get
+			an error message why... I guess some improvement could be done
+			here... (Actually, if the device does send characters &gt; ASCII
+			127 they will be converted to a representation which is 7-bit
+			clean, so you don't need to worry that garbage may come from the
+			device and screw things up... Just be sure what you type is OK...)</B></P>
+			<P CLASS="western"><BR><BR>
+			</P>
+			<P CLASS="western"><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

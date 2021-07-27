@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.0  (Linux)">
+	<META NAME="CREATED" CONTENT="20061210;5102700">
+	<META NAME="CHANGED" CONTENT="20061211;18025800">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in }
+		TD P { color: #ffffff }
+		TD P.western { font-family: sans-serif; so-language: en-US }
+		H1 { color: #ff8c00 }
+		H1.western { font-family: "sans serif"; so-language: en-US }
+		H1.cjk { font-family: "HG Mincho Light J", "MS Mincho", "HG Mincho J", "HG Mincho L", "HG Mincho", "Mincho", "MS PMincho", "MS Gothic", "HG Gothic J", "HG Gothic B", "HG Gothic", "Gothic", "MS PGothic", "Andale Sans UI", "Arial Unicode MS", "Lucida Sans Unicode", "Tahoma"; font-size: 12pt; font-weight: medium }
+		H1.ctl { font-size: 12pt; font-weight: medium }
+		P { color: #ffffff }
+		P.western { font-family: "sans serif"; so-language: en-US }
+		A:link { color: #ffff00 }
+		A:visited { color: #ffff00 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#ffffff" LINK="#ffff00" VLINK="#ffff00" BGCOLOR="#ffffff" BACKGROUND="./blocks.jpg" DIR="LTR">
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=59*>
+	<COL WIDTH=197*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=23%>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Introduction</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./index.html"><U><FONT COLOR="#ffff00">Index</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./overview.html"><U><FONT COLOR="#ffff00">Overview</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./installation.html"><U><FONT COLOR="#ffff00">Installation</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./getting_started.html"><U><FONT COLOR="#ffff00">Getting Started</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>GUI</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_input.html"><FONT COLOR="#ffff00"><B><U>Input</U></B></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_output.html"><FONT COLOR="#ffff00"><U>Output</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_buttons.html"><FONT COLOR="#ffff00"><U>Buttons</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_other.html"><FONT COLOR="#ffff00"><U>Other</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Scripts</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_intro.html"><FONT COLOR="#ffff00"><U>Introduction</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_reference.html"><FONT COLOR="#ffff00"><U>Reference</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_examples.html"><FONT COLOR="#ffff00"><U>Examples</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Appendix</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./license.html"><U><FONT COLOR="#ffff00">License</FONT></U></A></P>
+			<P CLASS="western"><A HREF="./relnotes.html"><U><FONT COLOR="#ffff00">Rel.
+			Notes</FONT></U></A></P>
+		</TD>
+		<TD WIDTH=77%>
+			<H1 CLASS="western">CommScript GUI - Input History and Input Line</H1>
+			<P CLASS="western"><B>I am using the words "input" for data entered by the user and may be sent to the connected device and "output" for the data coming from the device.</B></P>
+			<P CLASS="western"><B>CommScript has two GUI elements dealing with input that are closely linked: the input line to enter data (e.g. AT commands to a modem) and the input history in which all inputs are logged with time stamp.</B></P>
+			<P CLASS="western"><B>The input line is used to edit a text string until you are ready to send/execute the data/input line command. When you are done editing press &lt;Enter&gt;! The contents of the input line will then be appended to the input history. If the port is currently open and the text in the input line does not start with one of the following two-character prefixes, the text is written to the port, followed by '\r\n' (CRLF).</B></P>
+			<P CLASS="western"><B><OL>
+					<LI><P CLASS="western">=#<BR>Convert and send the following string from hex to binary. <BR>Example: =#41540D0A will send AT\r\n</P></LI>
+					<LI><P CLASS="western">=$<BR>Send the following string after conversion from Python representation. Please note: '\r\n' (CRLF) will not be appended.<BR>Examples: =$AT will just send AT, =$AT\r\n will send AT followed by CRLF.</P></LI>
+					<LI><P CLASS="western">=&gt;<BR>Executes a Python expression.<BR>Examples: =&gt;global a;a=5 will define a global variable <I>a</I> with value 5; =>set_title('Hello World') will call a function defined in CommScript, this will set the window title...</P></LI>
+					
+					<LI><P CLASS="western">=?<BR>Evaluate a Python expression.<BR>Examples: =?hex( ord('A') ) will return '0x41' in the output area, the time stamp will include '-eval' so you know that this was no output from the device; =?3*(5+20) will perform this simple calculation; =?a will print value of global variable <I>a</I> or an exception if not defined.</P></LI>	
+					<LI><P CLASS="western">//<BR>Highlight a Perl-style regular expression in the output area.<BR>Example: //ERROR will highlight all occurences of 'ERROR' in the text. The highlighting will be updated everytime something is typed in the input line. It will not be automatically applied to new text received! Please note: If there is plenty of text in the output area, the program may need to compute quite some time, especially if a search will match many occurences. If you would like to search for a certain string, you should probably enter the string first and then insert // at the beginning!</P></LI></OL></B></P>
+			<P CLASS="western"><B>After &lt;Enter&gt; is pressed the contents of the input line remains in place. So you may send the same data once more by just pressing &lt;Enter&gt; again! Or you may modify the previous data and send that. The contents will be deleted and replaced by a new input, if &lt;Enter&gt; is followed by a regular character (no cursor key, delete, or mouse click inbetween).</B></P>
+			<P CLASS="western"><B>Special keys when cursor is in the input line:
+			<UL>
+				<LI><P CLASS="western"><B>&lt;Enter&gt; you already know! If input line starts with // (regular expression search): Will set focus to output area and place cursor at first match.</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;Up&gt; and &lt;Down&gt; will scroll up and down the history</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;Esc&gt; if input line does not start with // : will clear current selection in list, so next &lt;Up&gt; will jump to end of list again. If input line starts with // : will set focus to output area (current cursor position is preserved).</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;F11&gt; will delete the current selected line from the history</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;F12&gt; will clear the input line</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;Ctrl-S&gt; will save input, output, and setup</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;Scroll Lock&gt; will toggle automatic scrolling; most helpful when you are typing into the output area... When automatic scrolling is off, text will be appended without jumping to the end, the setting also applies to input history, but is less critical there. Please note: the setting on/off is saved in the setup, it will be preserved even if the program is closed!</B></P></LI>
+			</UL></B></P>
+			<P CLASS="western"><B>Using the mouse to select from input history:
+			<UL>
+				<LI><P CLASS="western"><B>Left Button, single-click will copy the contents of the clicked line into the input line</B></P></LI>
+				<LI><P CLASS="western"><B>Left Button, double-click will copy and immediately execute input line (just if &lt;Enter&gt; was pressed)</B></P></LI>
+			</UL></B></P>
+			
+			<P CLASS="western"><BR><BR>
+			</P>
+			<P CLASS="western"><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

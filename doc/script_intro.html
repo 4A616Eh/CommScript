@@ -1,0 +1,171 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.0  (Linux)">
+	<META NAME="CREATED" CONTENT="20061210;5102700">
+	<META NAME="CHANGED" CONTENT="20061230;15385400">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in }
+		TD P { color: #ffffff }
+		TD P.western { font-family: sans-serif; so-language: en-US }
+		H1 { color: #ff8c00 }
+		H1.western { font-family: "sans serif"; so-language: en-US }
+		H1.cjk { font-family: "HG Mincho Light J", "MS Mincho", "HG Mincho J", "HG Mincho L", "HG Mincho", "Mincho", "MS PMincho", "MS Gothic", "HG Gothic J", "HG Gothic B", "HG Gothic", "Gothic", "MS PGothic", "Andale Sans UI", "Arial Unicode MS", "Lucida Sans Unicode", "Tahoma"; font-size: 12pt; font-weight: medium }
+		H1.ctl { font-size: 12pt; font-weight: medium }
+		P { color: #ffffff }
+		P.western { font-family: "sans serif"; so-language: en-US }
+		PRE { color: #ffffff }
+		A:link { color: #ffff00 }
+		A:visited { color: #ffff00 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#ffffff" LINK="#ffff00" VLINK="#ffff00" BGCOLOR="#ffffff" BACKGROUND="blocks.jpg" DIR="LTR">
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=59*>
+	<COL WIDTH=197*>
+	<TR VALIGN=TOP>
+	<TD WIDTH=23%>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Introduction</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="index.html"><U><FONT COLOR="#ffff00">Index</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="overview.html"><U><FONT COLOR="#ffff00">Overview</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="installation.html"><U><FONT COLOR="#ffff00">Installation</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="getting_started.html"><U><FONT COLOR="#ffff00">Getting
+			Started</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>GUI</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="gui_input.html"><U><FONT COLOR="#ffff00">Input</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="gui_output.html"><U><FONT COLOR="#ffff00">Output</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="gui_buttons.html"><U><FONT COLOR="#ffff00">Buttons</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="gui_other.html"><U><FONT COLOR="#ffff00">Other</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Scripts</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF=""><B><U><FONT COLOR="#ffff00">Introduction</FONT></U></B></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="script_reference.html"><U><FONT COLOR="#ffff00">Reference</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="script_examples.html"><U><FONT COLOR="#ffff00">Examples</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Appendix</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="license.html"><U><FONT COLOR="#ffff00">License</FONT></U></A></P>
+			<P CLASS="western"><A HREF="relnotes.html"><U><FONT COLOR="#ffff00">Rel.
+			Notes</FONT></U></A></P>
+		</TD>
+		<TD WIDTH=77%>
+			<H1 CLASS="western">Introduction to CommScript Scripts</H1>
+			<P CLASS="western"><B>Basically, a CommScript script is a Python
+			program. You can create very powerful scripts for practically any
+			purpose, including operating system functions, and even opening
+			one or more additional serial ports! For more information on the
+			Python language, please see the <A HREF="python24.chm">Python
+			2.4.3 help file</A>! Please note that quite a few modules are
+			included with CommScript, but not necessarily all of those
+			documented in the help file. If you are new to Python, the help
+			file also contains a good tutorial explaining details on control
+			flow and data structures. You will also find a complete language
+			and library reference.</B></P>
+			<P CLASS="western"><B>You do not need to install Python in order
+			to use CommScript! On the other hand the interpreter could help you
+			to test simple expressions to use in CommScript scripts... If you
+			choose to install Python, make sure to also install PythonWin
+			which comes with a nice user interface and is much easier to use
+			than the command line version :-)</B></P>
+			<P CLASS="western"><B>Very important: The script runs in a
+			separate thread. It must exit when the script is stopped which
+			will occur when the user clicks the 'Stop!' button or changes the
+			main COM port settings. It may exit any time on its own, in which
+			case the 'Run...' button will be shown again.</B></P>
+			<P CLASS="western"><B>Let's take a quick look at how some
+			C/C++ code fragments will look like in a CommScript script...</B> 
+			</P>
+			<P CLASS="western"><TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<COL WIDTH=128*>
+				<COL WIDTH=128*>
+				<TR VALIGN=TOP>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>  <B>int i, j;</B>
+  <B>unsigned char str[200];</B></FONT></PRE>
+					</TD>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>  <B>global i, j, str</B></FONT></PRE>
+					</TD>
+				</TR>
+			</TABLE></P>
+			<P CLASS="western"><B>In Python, variables are declared without
+			type. The variable could even be assigned a value of one type and
+			later a value of another type... The keyword &ldquo;global&rdquo;
+			means that the variable is in the global scope of the program.
+			If in some function the value of a global variable is changed, you will need to
+			declare this variable as a global variable in that function!</B></P>
+			<P CLASS="western"><TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<COL WIDTH=128*>
+				<COL WIDTH=128*>
+				<TR VALIGN=TOP>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>  <B>i = 10; j = 10;</B>
+  <B>strcpy(str, &quot;Hello World&quot;);</B></FONT></PRE>
+					</TD>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>  <B>i = j = 10</B>
+  <B>str = 'Hello World'</B></FONT></PRE>
+					</TD>
+				</TR>
+			</TABLE></P>
+			<P CLASS="western"><B>You don't need to put a semicolon at the end of a line. Like in C you may put several statements separated by semicolons into one line of code. Assignment of the same value to more than one variable is easier... and string handling, too... Note: strings may be enclosed in single ('...') or double quotes ("...").</B></P>
+			<P CLASS="western"><TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<COL WIDTH=128*>
+				<COL WIDTH=128*>
+				<TR VALIGN=TOP>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>  <B>if ( i && strlen(str) ) {</B>
+    <B>...</B>
+  <B>} else {</B>
+    <B>...</B>
+  <B>}</B></FONT></PRE>
+					</TD>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>   <B>if i and str:</B>
+     <B>...</B>
+   <B>else:</B>
+     <B>...</B>
+</FONT></PRE>
+					</TD>
+				</TR>
+			</TABLE></P>
+			<P CLASS="western"><B>No curly brackets (or other explicit syntax) is used to indicate which statements belong to then and else blocks. Just the use of indentation will group statements to blocks! It is a good idea to not mix tab and space characters to indent lines... Choose one or the other and stick with it. It might save you from potential trouble.</B></P>
+			<P CLASS="western"><TABLE WIDTH=100% BORDER=0 CELLPADDING=0 CELLSPACING=0>
+				<COL WIDTH=128*>
+				<COL WIDTH=128*>
+				<TR VALIGN=TOP>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>  <B>for ( i=0; i&lt;10; i++ ) {</B>
+    <B>printf( &quot;i = %d\r\n&quot;, i );</B>
+    <B>...</B>
+  <B>}</B></FONT></PRE>
+					</TD>
+					<TD WIDTH=50%>
+						<PRE><FONT SIZE=+1>   <B>for i in range(10): </B>
+     <B>output( &quot;i =&quot;, i )</B>
+     <B>...</B></FONT></PRE>
+					</TD>
+				</TR>
+			</TABLE></P>
+			<P CLASS="western"><B>The output function will print into the output area of the CommScript window. Please note that this may be delayed some milliseconds, since modifiying GUI elements is only allowed in the main thread - and the script does run in a separate thread - so there is some passing of data involved, and the main thread must regain execution... If you are creating even more threads in the script, which also use output() then the text may show up in an order you might not expect...</B></P>
+		
+			<P CLASS="western"><BR><BR>
+			</P>
+			<P CLASS="western"><BR><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>

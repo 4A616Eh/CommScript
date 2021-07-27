@@ -1,0 +1,85 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=iso-8859-1">
+	<TITLE></TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 2.0  (Linux)">
+	<META NAME="CREATED" CONTENT="20061210;5102700">
+	<META NAME="CHANGED" CONTENT="20061211;18025800">
+	<STYLE>
+	<!--
+		@page { size: 8.5in 11in }
+		TD P { color: #ffffff }
+		TD P.western { font-family: sans-serif; so-language: en-US }
+		H1 { color: #ff8c00 }
+		H1.western { font-family: "sans serif"; so-language: en-US }
+		H1.cjk { font-family: "HG Mincho Light J", "MS Mincho", "HG Mincho J", "HG Mincho L", "HG Mincho", "Mincho", "MS PMincho", "MS Gothic", "HG Gothic J", "HG Gothic B", "HG Gothic", "Gothic", "MS PGothic", "Andale Sans UI", "Arial Unicode MS", "Lucida Sans Unicode", "Tahoma"; font-size: 12pt; font-weight: medium }
+		H1.ctl { font-size: 12pt; font-weight: medium }
+		P { color: #ffffff }
+		P.western { font-family: "sans serif"; so-language: en-US }
+		A:link { color: #ffff00 }
+		A:visited { color: #ffff00 }
+	-->
+	</STYLE>
+</HEAD>
+<BODY LANG="en-US" TEXT="#ffffff" LINK="#ffff00" VLINK="#ffff00" BGCOLOR="#ffffff" BACKGROUND="./blocks.jpg" DIR="LTR">
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+<TABLE WIDTH=100% BORDER=0 CELLPADDING=4 CELLSPACING=0>
+	<COL WIDTH=59*>
+	<COL WIDTH=197*>
+	<TR VALIGN=TOP>
+		<TD WIDTH=23%>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Introduction</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./index.html"><U><FONT COLOR="#ffff00">Index</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./overview.html"><U><FONT COLOR="#ffff00">Overview</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./installation.html"><U><FONT COLOR="#ffff00">Installation</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./getting_started.html"><U><FONT COLOR="#ffff00">Getting Started</FONT></U></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>GUI</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_input.html"><FONT COLOR="#ffff00"><U>Input</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_output.html"><FONT COLOR="#ffff00"><B><U>Output</U></B></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_buttons.html"><FONT COLOR="#ffff00"><U>Buttons</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./gui_other.html"><FONT COLOR="#ffff00"><U>Other</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Scripts</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_intro.html"><FONT COLOR="#ffff00"><U>Introduction</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_reference.html"><FONT COLOR="#ffff00"><U>Reference</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./script_examples.html"><FONT COLOR="#ffff00"><U>Examples</U></FONT></A></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+			</P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><B>Appendix</B></P>
+			<P CLASS="western" STYLE="margin-bottom: 0in"><A HREF="./license.html"><U><FONT COLOR="#ffff00">License</FONT></U></A></P>
+			<P CLASS="western"><A HREF="./relnotes.html"><U><FONT COLOR="#ffff00">Rel.
+			Notes</FONT></U></A></P>
+		</TD>
+		<TD WIDTH=77%>
+			<H1 CLASS="western">CommScript GUI - Output Area</H1>
+			<P CLASS="western"><B>The output area is used to show data received from the connected device as well as text that is generated from scripts and also results of evaluations entered in the input line.</B></P>
+			<P CLASS="western"><B>When CommScript is in "AT_CMD" mode (which is a mode suited for communicating with modems through AT commands), it will split the incoming data at line feed ('\n') characters. After splitting, possibly existing carriage return ('\r') characters at the beginning or end of a line are deleted. Finally, all empty lines are deleted. At the moment, there is no way for you to change this mode. (Actually, when sending files by XModem protocol another mode is required internally, but this will be switched automatically...)</B></P>
+			<P CLASS="western"><B>The output from the device or results of evaluation will be logged with time stamp by calling the function <I>log_output( tag, str )</I>. If you are interested in more details, please see the Script section of the documentation. The <I>tag</I> is also a string for additional information which will be appended together with a '-' directly after the time stamp. If <I>tag</I> is empty, no '-' will be appended after the time stamp. The resulting time stamp+tag is enclosed in brackets [...] and separated from the received output / result by a space character.</B></P>
+			<P CLASS="western"><B>Currently, there are two tags you might come across: 'F' (buffer flush: there was no new line character received, and there was no other data received for 1 second. In this case the contents of the receive buffer will be treated as if it was a complete line, but if you see a line prefixed with [hh:mm:ss-F] you will know that this line was not terminated by a new line character.) and 'eval' (which simply means, the output was generated by an evaluation rather than from the connected device.)</B></P>
+			<P CLASS="western"><B>You are allowed to type in the output area. What you type there is not sent to the connected device! This feature is for example very useful to insert comments - and you even may do so while there is more output appended to the end of the text, or when the connected device is off, or if the port is closed.</B></P>
+			<P CLASS="western"><B>Special keys when cursor is in the output area:</B></P>
+			<UL>
+				<LI><P CLASS="western"><B>&lt;Ctrl-S&gt; will save input, output, and setup</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;Escape&gt; will set focus to input line</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;Scroll Lock&gt; will toggle automatic scrolling; most helpful when you are typing into the output area... When automatic scrolling is off, text will be appended without jumping to the end, the setting also applies to input history, but is less critical there. Please note: the setting on/off is saved in the setup, it will be preserved even if the program is closed!</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;F2&gt; jump to previous regular expression match (see note below)</B></P></LI>
+				<LI><P CLASS="western"><B>&lt;F3&gt; jump to next regular expression match (see note below)</B></P></LI>	
+			</UL>
+			<P CLASS="western"><B>The other editing key bindings are the standard Tk bindings for the <I>Text</I> object.</B></P>
+			<P CLASS="western"><B>Note: Pressing &lt;F2&gt; / &lt;F3&gt; will trigger re-evaluation of the most recent search operation, so that search matches within anything that might have been added to the output area will also be highlighted and may be jumped to... (As a result, the input line will be set to the last query. Any changes to the input line will be lost if not executed before pressing F2 / F3 in the output area.)</B></P>
+			<P CLASS="western"><BR><BR>
+			</P>
+			<P CLASS="western"><BR>
+			</P>
+		</TD>
+	</TR>
+</TABLE>
+<P CLASS="western" STYLE="margin-bottom: 0in"><BR>
+</P>
+</BODY>
+</HTML>
