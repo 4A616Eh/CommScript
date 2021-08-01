@@ -1,7 +1,10 @@
 # CommScript
 Scriptable Serial Communication Tool
 
+Make sure your Python interpreter has
+pyinstaller installed. 
 
-
-*Please use **Python 3.9.6** or later to run this. Otherwise Editor may not work... (This code contains an adapted version of **idlelib** from Python 3.9.6 which may may not be able to run in earlier Python versions...)*
+Running **build.bat** in Windows 10 will 
+result in a zip file containing portable 
+app in the **dist** folder. 
 
