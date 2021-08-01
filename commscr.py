@@ -1,5 +1,7 @@
+
+import version
+
 from tkinter import *
-from tkinter import _cnfmerge
 from tkinter.commondialog import Dialog
 from tkinter.messagebox import showinfo,showwarning,showerror,askquestion,askokcancel,askyesno,askretrycancel
 
@@ -10,25 +12,14 @@ import time
 import threading
 import re
 import os
-import codecs
-import site
-import string
 import traceback
 import binascii
-
-# IDLE standard extensions, just imported that they will be found as required modules by py2exe
-#import my_idlelib.AutoExpand
-#import my_idlelib.CallTips
-#import my_idlelib.CodeContext
-#import my_idlelib.FormatParagraph
-#import my_idlelib.ParenMatch
 
 import my_idlelib
 import my_idlelib.editor
 import my_idlelib.filelist
 
 import glob
-from functools import reduce
 import json
 
 PLATFORM_UNKNOWN = 0
@@ -52,35 +43,6 @@ def ENC(s):
     return s.encode('latin_1')
   else:
     return s
-
-# -----------------------------------------------------------------------------
-# History
-# -----------------------------------------------------------------------------
-#
-version = 'CommScript 1.05'
-#
-# Version 1.00:
-# - Initial Version
-# Version 1.01:
-# - Fix Editor Window (Modification in my_idlelib)
-# Version 1.03:
-# - added RTF example
-# - added user_line_end and set_line_end(ln_end_str=None)
-#   default line end for "sendln()" as in previous versions: \r\n
-# Version 1.04
-# - added input line command \\ to execute scripts
-# - moved examples to scripts/examples
-# - configurable fonts and sizes for input, output, and inputline
-# Version 1.05
-# - adapted to python3
-# - using json format for saving setup and tags
-# - removed xmodem support
-# - uses by default encoding latin_1. Not configurable at this time.
-#   No need to set default encoding in system settings.
-# - still may have bugs...
-#   e.g. editor window ia closed when main window is closed even if edited file 
-#        is modified and not saved
-#        and maybe others... not sure what happens to UTF data sent from input line
 
 # -----------------------------------------------------------------------------
 # Useful tools...
@@ -339,7 +301,7 @@ init_outputHeight = 20
 d = None
 setup = dict( scroll_mode=True, dwl_path='.', dwl_file='',
               in_path='.', in_file='', out_path='.', out_file='',
-              title=version, v=version[-5:], i=None, geometry=None,
+              title=version.version, v=version.version[-5:], i=None, geometry=None,
               port=init_ports[0], ports=init_ports,
               speed=init_speeds[0], speeds=init_speeds,
               param=init_params[0], params=init_params,
@@ -1160,7 +1122,7 @@ class MyDialog:
   clear_OK = False;
     
   def __init__( self, master, title=None ):
-    global sv_status, sv_comma, setup, version
+    global sv_status, sv_comma, setup
     self.search_results = []
     self.last_search = None
     setup['ports'] = comm_checkports()
@@ -1277,7 +1239,7 @@ class MyDialog:
     self.button_run.pack( side=LEFT, fill=Y )
     self.label_status = Label( self.bottomframe, textvariable=sv_status )
     self.label_status.pack( side=LEFT )
-    update_status_line( version )
+    update_status_line( version.version )
     self.bar = ProgressBarView( self.bottomframe, value=0 )
     self.bar.pack( side=RIGHT, fill=X )
     self.inputline = Entry( self.top, width=inputlineWidth, font=inputlineFont )
@@ -1612,7 +1574,7 @@ class MyDialog:
     self.exec_inputline()
     if self.bar.value == 100:
       update_progress( 0 )
-      update_status_line( version )
+      update_status_line( version.version )
     if event.char == chr(13):
       self.clear_OK = True
 
@@ -1711,13 +1673,6 @@ def run_main():
     tag_reconfigure()
     root.withdraw()
     sv_status = StringVar()
-    enc = sys.getdefaultencoding()
-#    if enc == 'ascii':
-#      if not askyesno('!! W A R N I N G !!', 'The default encoding is set to ASCII. When saving the output only 7-bit characters are allowed, otherwise the saving will fail - resulting in an empty file! Especially when a modem is unplugged or plugged in while the port is open, special non-ASCII characters might be generated (noise). Also, if you are entering comments into the output section, and you are using you for example German umlauts, saving will also fail. You can change the setting in site.py in the Python Lib folder... If you are in Western Europe \'iso-8859-15\' should be a good choice.\n\nWould you like to continue anyway? (NOT RECOMMENDED!)'):
-#        sys.exit()
-#    elif not enc in [ 'latin', 'latin1', 'latin_1', 'latin-1', 'L1', 'iso-8859-1', 'iso8859-1', '8859', 'cp819', 'iso-8859-15', 'iso8859_15', 'cp1252' ]:
-#      if not askyesno('!! W A R N I N G !!', 'The default encoding is \''+enc+'\'. If this encoding does not support all characters sent from the device (please note that noise could result in characters in range(256)) or characters typed into inputline and output field, saving the input history or output area will fail resulting in an empty file! Especially when a modem is unplugged or plugged in while the port is open, noise characters might be generated. You can change the setting in site.py in the Python Lib folder... If you are in Western Europe \'iso-8859-15\' should be a good choice.\n\nWould you like to continue anyway? (You might loose valuable data...)'):
-#        sys.exit()
     if len(sys.argv) >= 2:
       if sys.argv[1] == '/install':
         if not askyesno('Congratulations!', 'CommScript is now installed!\n\nRun CommScript now?'):
