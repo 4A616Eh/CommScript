@@ -348,6 +348,7 @@ class IOBinding:
     savedialog = None
 
     filetypes = (
+        ("CommScript files", "*.cs", "TEXT"),
         ("Python files", "*.py *.pyw", "TEXT"),
         ("Text files", "*.txt", "TEXT"),
         ("All files", "*"),

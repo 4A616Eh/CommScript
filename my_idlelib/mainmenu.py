@@ -23,7 +23,7 @@ menudefs = [
  # underscore prefixes character to underscore
  ('file', [
 ##   ('_New File', '<<open-new-window>>'),
-##   ('_Open...', '<<open-window-from-file>>'),
+   ('_Open...', '<<open-window-from-file>>'),
 ##   ('Open _Module...', '<<open-module>>'),
 ##   ('Module _Browser', '<<open-class-browser>>'),
 ##   ('_Path Browser', '<<open-path-browser>>'),
