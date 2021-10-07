@@ -1333,10 +1333,11 @@ class MyDialog:
     self.promptdisplay = Label( frame, anchor=W,
                                 text='Start with // for regular expression. Options:' )
     self.promptdisplay.pack( side=LEFT )
-    for name in ( 'IGNORECASE', 'LOCALE', 'MULTILINE', 'DOTALL', 'VERBOSE' ):
-      val = getattr( re, name )
-      var = IntVar()
-      box = Checkbutton( frame, variable=var, text=name, offvalue=0, onvalue=val,
+    for name in ( 'ASCII', 'IGNORECASE', 'VERBOSE' ):
+      val = 're.' + name
+      var = StringVar()
+      var.set('0')
+      box = Checkbutton( frame, variable=var, text=name, offvalue='0', onvalue=val,
                          command=self.recompile )
       box.pack( side=LEFT )
       self.boxes.append( box )
@@ -1345,11 +1346,12 @@ class MyDialog:
     self.statusdisplay.pack( side=LEFT, fill=X )
 
   def getflags(self):
-    flags = 0
+    flags = ''
     for var in self.vars:
-      flags = flags | var.get()
-    flags = flags
-    return flags
+      flags = flags + var.get() + '|'
+    if flags != '':
+      flags = flags[:-1]
+    return eval(flags)
 
   def keypress(self, event=None):
     if event.char != '':
