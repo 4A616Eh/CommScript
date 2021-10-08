@@ -1395,8 +1395,8 @@ class MyDialog:
 
   def removetags(self):
     self.search_results = []
-    self.search_tag_char_line_highlight = 0
-    self.search_tag_char_line_searched = 0
+    self.search_tag_last_result_highlight = 0
+    self.search_tag_last_char_searched = 0
     if not self.output: return
     try: self.output.tag_remove( "hit", "1.0", END )
     except TclError: pass
