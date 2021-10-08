@@ -48,6 +48,9 @@ def ENC(s):
 # Useful tools...
 # -----------------------------------------------------------------------------
 
+def tk_get_index_from_position(pos):
+    return "1.0 + %d chars" % pos
+    
 def ex():
   output_str( '\n>>> Exception <<<' )
   output_str( sys.exc_info()[0] )  
@@ -1124,6 +1127,8 @@ class MyDialog:
   def __init__( self, master, title=None ):
     global sv_status, sv_comma, setup
     self.search_results = []
+    self.search_tag_last_result_highlight = 0
+    self.search_tag_last_char_searched = 0    
     self.last_search = None
     setup['ports'] = comm_checkports()
     if title is None: 
@@ -1375,55 +1380,58 @@ class MyDialog:
       except re.error as msg:
         self.compiled = None
         self.statusdisplay.config( text="  re.error: %s  " % str(msg), background="red" )
-      self.reevaluate()
+      self.removetags()
+      nmatches = self.reevaluate(0)
+      
+      if nmatches > 0:
+        self.output.see( tk_get_index_from_position(self.search_results[0][0]) )
+
+      if nmatches == 0:
+        self.statusdisplay.config( text="  (no match)  ", background="yellow" )
+      else:
+        self.statusdisplay.config( text="" )
+      
     elif line[:2] == '//': self.removetags()
 
   def removetags(self):
     self.search_results = []
+    self.search_tag_char_line_highlight = 0
+    self.search_tag_char_line_searched = 0
     if not self.output: return
     try: self.output.tag_remove( "hit", "1.0", END )
     except TclError: pass
     try: self.output.tag_remove( "hit0", "1.0", END )
     except TclError: pass
 
-  def reevaluate(self, event=None):
-    self.removetags()
+  def reevaluate(self, initial_char = 0, timeout_secs = 10.0, event=None):
     if not self.compiled:
       return
-    text = self.output.get( "1.0", END )
+
+    self.search_tag_last_char_searched = self.output.count('1.0','end','chars')[0]
+    text = self.output.get( tk_get_index_from_position(initial_char), tk_get_index_from_position(self.search_tag_last_char_searched) )
+    
     last = 0
     nmatches = 0
+    
     time_start = time.time()
     timeout = False
-    timeout_secs = 10
-    if len(self.inputline.get()) < 6:
-      timeout_secs = 1
+    
     while last <= len( text ) and not timeout:
-      timeout = (time.time() - time_start) > timeout_secs
       m = self.compiled.search( text, last )
       if m is None:
         break
       first, last = m.span()
       if last == first:
         last = first + 1
-        tag_name = "hit0"
-      else:
-        tag_name = "hit"
-      pfirst = "1.0 + %d chars" % first
-      plast = "1.0 + %d chars" % last
-      self.output.tag_add( tag_name, pfirst, plast )
-      self.search_results += [ pfirst ]
-      if nmatches == 0:
-        self.output.see( pfirst )
-        groups = list( m.groups() )
-        groups.insert( 0, m.group() )
+
+      self.search_results += [ (first + initial_char, last + initial_char) ]
       nmatches = nmatches + 1
+      timeout = (time.time() - time_start) > timeout_secs
+
     if timeout:
-      self.statusdisplay.config( text="  (timeout)  ", background="yellow" )
-    elif nmatches == 0:
-      self.statusdisplay.config( text="  (no match)  ", background="yellow" )
-    else:
-      self.statusdisplay.config( text="" )
+        self.search_tag_last_char_searched = last
+      
+    return nmatches
 
   def go( self ):
     self.inputline.focus_set()
@@ -1481,31 +1489,33 @@ class MyDialog:
   def f2_event( self, event ):
     if self.last_search:
       inputline_set( self.last_search )
-      self.recompile()
+      # self.recompile()
     if self.search_results:
       cursor_pos = self.output.index( 'insert' )
-      last_pos = self.search_results[-1]
+
+      last_pos = tk_get_index_from_position(self.search_results[-1][0])
+      
       for search_pos in self.search_results:
-        if self.output.compare( search_pos, '>=', cursor_pos ):
+        if self.output.compare( tk_get_index_from_position(search_pos[0]), '>=', cursor_pos ):
           self.output.mark_set( 'insert', last_pos )
           self.output.see( 'insert' )
           return
-        else: last_pos = search_pos
+        else: last_pos = tk_get_index_from_position(search_pos[0])
       self.output.mark_set( 'insert', last_pos )
       self.output.see( 'insert' )
   
   def f3_event( self, event ):
     if self.last_search:
       inputline_set( self.last_search )
-      self.recompile()
+      # self.recompile()
     if self.search_results:
       cursor_pos = self.output.index( 'insert' )
       for search_pos in self.search_results:
-        if self.output.compare( search_pos, '>', cursor_pos ):
-          self.output.mark_set( 'insert', search_pos )
+        if self.output.compare( tk_get_index_from_position(search_pos[0]), '>', cursor_pos ):
+          self.output.mark_set( 'insert', tk_get_index_from_position(search_pos[0]) )
           self.output.see( 'insert' )
           return
-      self.output.mark_set( 'insert', self.search_results[0] )
+      self.output.mark_set( 'insert', tk_get_index_from_position(self.search_results[0][0]) )
       self.output.see( 'insert' )
 
   def f11_event( self, event ):
@@ -1546,7 +1556,7 @@ class MyDialog:
       send( eval( '"\'' + line[2:] + '\'"' )[1:-1] )
     elif line[:2] == '//':
       if self.search_results:
-        self.output.mark_set( "insert", self.search_results[0] )
+        self.output.mark_set( "insert", tk_get_index_from_position(self.search_results[0][0]) )
       else:  
         self.output.mark_set( "insert", END )
       self.output.see( "insert" )
@@ -1680,12 +1690,39 @@ def run_main():
         if not askyesno('Congratulations!', 'CommScript is now installed!\n\nRun CommScript now?'):
           sys.exit()
     d = MyDialog( root )
+    root.after(1000, cooperative_multitasking_please_kill_the_tk_creator_in_the_past)
+    
     r = d.go()
     with open(setup['startup_path']+'/setup.json', 'w') as fp:
       json.dump(setup, fp)
     comm_close()
     if script_th:
       script_stop()
+
+def cooperative_multitasking_please_kill_the_tk_creator_in_the_past():
+    global root, d
+    
+    current_char = d.output.count('1.0','end','chars')[0]
+    
+    if d.search_tag_last_char_searched < current_char:
+        # Search in new text
+        d.reevaluate(d.search_tag_last_char_searched, 0.02)
+        
+    if d.search_tag_last_result_highlight < len(d.search_results):
+        # Highlight 
+        time_start = time.time()
+        timeout_secs = 0.04
+        timeout = False
+        
+        while d.search_tag_last_result_highlight < len(d.search_results) and not timeout:
+            d.output.tag_add( 'hit', 
+                             tk_get_index_from_position(d.search_results[d.search_tag_last_result_highlight][0]), 
+                             tk_get_index_from_position(d.search_results[d.search_tag_last_result_highlight][1]))
+            d.search_tag_last_result_highlight += 1
+            timeout = (time.time() - time_start) > timeout_secs
+
+    root.after(100, cooperative_multitasking_please_kill_the_tk_creator_in_the_past)
+    
 
 if __name__ == '__main__':
     run_main()
