@@ -1271,7 +1271,7 @@ class MyDialog:
     self.outputbar = Scrollbar( self.midframe )
     self.outputbar.pack( side=RIGHT, fill=Y )
     self.output = Text( self.midframe, exportselection=0, width=outputWidth, height=outputHeight, \
-      yscrollcommand=(self.outputbar,'set'), font=outputFont )
+      yscrollcommand=(self.outputbar,'set'), font=outputFont, undo=True )
     self.output.pack( side=RIGHT, expand=YES, fill=BOTH )
     self.outputbar.config( command=(self.output,'yview') )
     self.output.bind( '<Control-s>', self.save_event )
