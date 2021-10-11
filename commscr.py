@@ -1378,9 +1378,8 @@ class MyDialog:
 
   def autosave(self):
     if self.initialization_complete:
-        save()
-        
-    self.autosave_job = root.after( 60*1000, self.autosave )
+        save()        
+    self.autosave_job = root.after( 5*60*1000, self.autosave )
 
   def change_autosave(self, event=None):
     if self.autosave_var.get():
