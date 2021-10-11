@@ -1126,6 +1126,9 @@ class MyDialog:
     
   def __init__( self, master, title=None ):
     global sv_status, sv_comma, setup
+    self.autosave_job = None
+    self.autosave_var = IntVar()
+    self.autosave_var.set(1)
     self.search_results = []
     self.search_tag_last_result_highlight = 0
     self.search_tag_last_char_searched = 0    
@@ -1335,6 +1338,12 @@ class MyDialog:
     frame = Frame( self.top )
     frame.pack( fill=X )
     self.frames.append( frame )
+  
+    box = Checkbutton( frame, variable=self.autosave_var, text='Auto-Save', offvalue=0, onvalue=1,
+                       command=self.change_autosave )
+    box.pack( side=RIGHT )
+    self.boxes.append( box )
+    
     self.promptdisplay = Label( frame, anchor=W,
                                 text='Start with // for regular expression. Options:' )
     self.promptdisplay.pack( side=LEFT )
@@ -1365,6 +1374,18 @@ class MyDialog:
       elif self.clear_OK:
         self.inputline.delete( 0, END )
         self.clear_OK = False
+
+  def autosave(self):
+    save()
+    self.autosave_job = root.after( 60*1000, self.autosave )
+
+  def change_autosave(self, event=None):
+    if self.autosave_var.get():
+      self.autosave()
+    else: # cancel autosave      
+      if self.autosave_job is not None:
+        root.after_cancel(self.autosave_job)
+        self.autosave_job = None
 
   def recompile(self, event=None):
     e = None
@@ -1691,6 +1712,7 @@ def run_main():
           sys.exit()
     d = MyDialog( root )
     root.after(1000, cooperative_multitasking_please_kill_the_tk_creator_in_the_past)
+    d.change_autosave()
     
     r = d.go()
     with open(setup['startup_path']+'/setup.json', 'w') as fp:
