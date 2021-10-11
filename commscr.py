@@ -1729,7 +1729,7 @@ def run_main():
 def cooperative_multitasking_please_kill_the_tk_creator_in_the_past():
     global root, d
     
-    if self.initialization_complete:
+    if d.initialization_complete:
         current_char = d.output.count('1.0','end','chars')[0]
     
         if d.search_tag_last_char_searched < current_char:
