@@ -1126,6 +1126,7 @@ class MyDialog:
     
   def __init__( self, master, title=None ):
     global sv_status, sv_comma, setup
+    self.initialization_complete = False
     self.autosave_job = None
     self.autosave_var = IntVar()
     self.autosave_var.set(1)
@@ -1376,8 +1377,9 @@ class MyDialog:
         self.clear_OK = False
 
   def autosave(self):
-    save()
-    self.autosave_job = root.after( 60*1000, self.autosave )
+    if self.initialization_complete:
+        save()        
+    self.autosave_job = root.after( 5*60*1000, self.autosave )
 
   def change_autosave(self, event=None):
     if self.autosave_var.get():
@@ -1463,6 +1465,8 @@ class MyDialog:
     self.flist = my_idlelib.filelist.FileList(self.master)
     if setup['autostart']:
       script_run( setup['autostart'] )
+
+    self.initialization_complete = True
     self.master.mainloop()          # Exited by self.quit(how)
     self.top.destroy()
     return 0
@@ -1724,24 +1728,25 @@ def run_main():
 def cooperative_multitasking_please_kill_the_tk_creator_in_the_past():
     global root, d
     
-    current_char = d.output.count('1.0','end','chars')[0]
+    if d.initialization_complete:
+        current_char = d.output.count('1.0','end','chars')[0]
     
-    if d.search_tag_last_char_searched < current_char:
-        # Search in new text
-        d.reevaluate(d.search_tag_last_char_searched, 0.02)
+        if d.search_tag_last_char_searched < current_char:
+            # Search in new text
+            d.reevaluate(d.search_tag_last_char_searched, 0.02)
         
-    if d.search_tag_last_result_highlight < len(d.search_results):
-        # Highlight 
-        time_start = time.time()
-        timeout_secs = 0.04
-        timeout = False
+        if d.search_tag_last_result_highlight < len(d.search_results):
+            # Highlight 
+            time_start = time.time()
+            timeout_secs = 0.04
+            timeout = False
         
-        while d.search_tag_last_result_highlight < len(d.search_results) and not timeout:
-            d.output.tag_add( 'hit', 
-                             tk_get_index_from_position(d.search_results[d.search_tag_last_result_highlight][0]), 
-                             tk_get_index_from_position(d.search_results[d.search_tag_last_result_highlight][1]))
-            d.search_tag_last_result_highlight += 1
-            timeout = (time.time() - time_start) > timeout_secs
+            while d.search_tag_last_result_highlight < len(d.search_results) and not timeout:
+                d.output.tag_add( 'hit', 
+                                 tk_get_index_from_position(d.search_results[d.search_tag_last_result_highlight][0]), 
+                                 tk_get_index_from_position(d.search_results[d.search_tag_last_result_highlight][1]))
+                d.search_tag_last_result_highlight += 1
+                timeout = (time.time() - time_start) > timeout_secs
 
     root.after(100, cooperative_multitasking_please_kill_the_tk_creator_in_the_past)
     
