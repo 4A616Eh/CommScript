@@ -133,7 +133,7 @@ class SerialPort:
         if len(byte)==0 and self.__timeout!=0: # Time-out
             raise SerialPortException('Timeout')
         else:
-            return byte.decode()
+            return byte.decode(encoding='latin_1', errors='ignore')
 
     def read(self, num=1) -> str:
         """Read num bytes from the serial port.

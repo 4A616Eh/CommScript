@@ -40,7 +40,7 @@ if platform == PLATFORM_UNKNOWN:
 
 def ENC(s):
   if (type(s) == type(bytes)):
-    return s.encode('latin_1')
+    return s.encode('latin_1', errors='ignore')
   else:
     return s
 
