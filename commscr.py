@@ -332,12 +332,12 @@ serial_mode = AT_CMD
 user_split_str = '\n'
 user_split_byte_bin = b'\x7e'
 
-def set_serial_mode( mode, split_str=None ):
-  global serial_mode, user_split_str
-  if mode in [ AT_CMD, USER_SPLIT ]:
+def set_serial_mode( mode, split_str=None, bin_split_str=None ):
+  global serial_mode, user_split_str, user_split_byte_bin
+  if mode in [ AT_CMD, USER_SPLIT, BINARY ]:
     serial_mode = mode
-    if split_str:
-      user_split_str = split_str
+    user_split_str = split_str
+    user_split_byte_bin = bin_split_str
 
 user_line_end = '\r\n'
 
