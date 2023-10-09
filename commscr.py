@@ -319,6 +319,7 @@ s_th = None
  
 inbuffer = ''
 inlines = []
+binlines = []
 tty = None
 
 mutex = threading.RLock()
@@ -329,6 +330,7 @@ BINARY = 4
 
 serial_mode = AT_CMD
 user_split_str = '\n'
+user_split_byte_bin = b'\x7e'
 
 def set_serial_mode( mode, split_str=None ):
   global serial_mode, user_split_str
@@ -786,10 +788,12 @@ def script_stop():
 
 class SerialInputThread( threading.Thread ):
   def run( self ):
-    global tty, inbuffer, inlines, serial_mode, setup
+    global tty, inbuffer, inlines, serial_mode, setup, binlines
     global script_name, script_th, script_data_handler
+
     flush_timeout = 0
     running = True
+    binbuffer = b''
     while running:
       mutex.acquire()
       tty_ok = tty != None
@@ -797,30 +801,57 @@ class SerialInputThread( threading.Thread ):
       if tty_ok:
         mutex.acquire()
         try:
-            while (tty.inWaiting() > 0):
-              flush_timeout = 0
-              inbuffer = ENC(inbuffer)
-              inbuffer += tty.read( tty.inWaiting() )
-              if serial_mode in [ AT_CMD, USER_SPLIT ]:
-                if serial_mode == AT_CMD:
-                  lst = re.split( '\n', inbuffer )
-                  def remove_r( ln ):
-                    while ln and (ln[0]=='\r'): ln = ln[1:]
-                    while ln and (ln[-1:]=='\r'): ln = ln[:-1]
-                    return ln
-                  inlines += list(map(remove_r,lst[:-1]))
-                else:
-                  if inbuffer:
-                    lst = re.split( user_split_str, inbuffer )
-                    inlines += lst[:-1]
-                inbuffer = lst[-1]
-                if d:
-                  for line in inlines:
-                    if line:
-                      log_output( None, line )
-                      if script_name and not (script_data_handler is None):
-                        script_data_handler( line )
-                inlines = []
+            if serial_mode == BINARY:
+              while (tty.inWaiting() > 0):
+                flush_timeout = 0
+                binbuffer += tty.read_bin( tty.inWaiting() )
+                
+                try:
+                  bin_split = user_split_byte_bin
+                except:
+                  bin_split = None
+
+                if binbuffer:
+                  if bin_split is not None:
+                    lst = binbuffer.split(bin_split)
+                  else:
+                    lst = [binbuffer, b'']
+
+                  binlines += lst[:-1]
+                  binbuffer = lst[-1]
+
+                  if d:
+                    for line in binlines:
+                      if line:
+                        log_output( None, line.hex() )
+                        if script_name and not (script_data_handler is None):
+                          script_data_handler( line )
+                  binlines = []
+            else:
+              while (tty.inWaiting() > 0):
+                flush_timeout = 0
+                inbuffer = ENC(inbuffer)
+                inbuffer += tty.read( tty.inWaiting() )
+                if serial_mode in [ AT_CMD, USER_SPLIT ]:
+                  if serial_mode == AT_CMD:
+                    lst = re.split( '\n', inbuffer )
+                    def remove_r( ln ):
+                      while ln and (ln[0]=='\r'): ln = ln[1:]
+                      while ln and (ln[-1:]=='\r'): ln = ln[:-1]
+                      return ln
+                    inlines += list(map(remove_r,lst[:-1]))
+                  else:
+                    if inbuffer:
+                      lst = re.split( user_split_str, inbuffer )
+                      inlines += lst[:-1]
+                  inbuffer = lst[-1]
+                  if d:
+                    for line in inlines:
+                      if line:
+                        log_output( None, line )
+                        if script_name and not (script_data_handler is None):
+                          script_data_handler( line )
+                  inlines = []
         except:
             tty_ok = False
             tty = None

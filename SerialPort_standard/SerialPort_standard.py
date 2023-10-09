@@ -123,6 +123,29 @@ class SerialPort:
         """
         return self.__ser.fileno()
 
+    def __read1_bin(self) -> bytes:
+        """Read 1 byte from the serial port.
+
+        Generate an exception if no byte is read and self.timeout!=0 
+        because a timeout has expired.
+        """
+        byte = self.__ser.read(1)
+        if len(byte)==0 and self.__timeout!=0: # Time-out
+            raise SerialPortException('Timeout')
+        else:
+            return byte
+
+    def read_bin(self, num=1) -> bytes:
+        """Read num bytes from the serial port.
+
+        Uses the private method __read1 to read num bytes. If an exception
+        is generated in any of the calls to __read1 the exception is reraised.
+        """
+        s=b''
+        for i in range(num):
+            s = s + SerialPort.__read1_bin(self)
+        return s
+    
     def __read1(self):
         """Read 1 byte from the serial port.
 
