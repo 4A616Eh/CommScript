@@ -873,6 +873,10 @@ class SerialInputThread( threading.Thread ):
         running = False
     print('SerialInputThread done!')
 
+def send_bin( binary: bytes):
+  if tty:
+    tty.write( binary )
+
 def send( text: str ):
   if tty:
     bytes_to_write = bytes(text, encoding="latin_1", errors="ignore")
