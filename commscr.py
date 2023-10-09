@@ -862,11 +862,18 @@ class SerialInputThread( threading.Thread ):
         flush_timeout += 1
         if flush_timeout > 10:
           mutex.acquire()
-          if inbuffer:
-            if script_name and not (script_data_handler is None):
-              script_data_handler( inbuffer )
-            log_output( 'F', inbuffer )
-            inbuffer = ''
+          if serial_mode == BINARY:
+            if binbuffer:
+              if script_name and not (script_data_handler is None):
+                script_data_handler( binbuffer )
+              log_output( 'F', binbuffer.hex() )
+              binbuffer = b''
+          else:
+            if inbuffer:
+              if script_name and not (script_data_handler is None):
+                script_data_handler( inbuffer )
+              log_output( 'F', inbuffer )
+              inbuffer = ''
           mutex.release()
           flush_timeout = 0
       else:
