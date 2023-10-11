@@ -300,6 +300,8 @@ init_inputWidth = 25
 init_inputlineWidth = 60
 init_outputWidth = 40
 init_outputHeight = 20
+init_inputthread_sleep = 0.1
+init_flushticks = 10
 
 d = None
 setup = dict( scroll_mode=True, dwl_path='.', dwl_file='',
@@ -314,7 +316,9 @@ setup = dict( scroll_mode=True, dwl_path='.', dwl_file='',
               inputlineFont = init_inputlineFont,
               inputWidth = init_inputWidth, inputlineWidth = init_inputlineWidth,
               outputWidth = init_outputWidth, outputHeight = init_outputHeight,
-              startup_path='.', tcolors={ 'hit':(None,'yellow'), 'hit0':(None,'orange') } )
+              startup_path='.', tcolors={ 'hit':(None,'yellow'), 'hit0':(None,'orange') },
+              internal_inputthread_sleep = init_inputthread_sleep,
+              internal_flush_ticks = init_flushticks )
 s_th = None
  
 inbuffer = ''
@@ -338,6 +342,13 @@ def set_serial_mode( mode, split_str=None, bin_split_str=None ):
     serial_mode = mode
     user_split_str = split_str
     user_split_byte_bin = bin_split_str
+
+def set_internal_thread_sleep_time( time_s, flushticks ):
+  global setup
+  mutex.acquire()
+  setup['internal_inputthread_sleep'] = time_s
+  setup['internal_flush_ticks'] = flushticks
+  mutex.release()
 
 user_line_end = '\r\n'
 
@@ -794,9 +805,13 @@ class SerialInputThread( threading.Thread ):
     flush_timeout = 0
     running = True
     binbuffer = b''
+    sleeptime_s = 0.1
+    flushticks = 10
     while running:
       mutex.acquire()
       tty_ok = tty != None
+      sleeptime_s = setup['internal_inputthread_sleep']
+      flushticks = setup['internal_flush_ticks']
       mutex.release()      
       if tty_ok:
         mutex.acquire()
@@ -858,9 +873,9 @@ class SerialInputThread( threading.Thread ):
             log_output( 'ERR', "SERIAL PORT ERROR" )
             
         mutex.release()
-        time.sleep( 0.1 )
+        time.sleep( sleeptime_s )
         flush_timeout += 1
-        if flush_timeout > 10:
+        if flush_timeout > flushticks:
           mutex.acquire()
           if serial_mode == BINARY:
             if binbuffer:
